@@ -1,0 +1,36 @@
+{
+  "name": "swiftyper/laravel-fbt-sync",
+  "description": "Extension for automatic deployment of fbt framework translations for Laravel",
+  "keywords": ["php", "i18n", "framework", "internationalization", "laravel", "translations", "sync", "deploy"],
+  "authors": [
+    {
+      "name": "Richard Dobroň",
+      "role": "Developer"
+    }
+  ],
+  "homepage": "https://translations.swiftyper.sk/",
+  "license": "MIT",
+  "minimum-stability": "dev",
+  "require": {
+    "php": "^7.0 || ^8.0",
+    "ext-json": "*",
+    "illuminate/contracts": "~5.5.0|~5.6.0|~5.7.0|~5.8.0|^6.0|^7.0|^8.0",
+    "illuminate/support": "~5.5.0|~5.6.0|~5.7.0|~5.8.0|^6.0|^7.0|^8.0",
+    "swiftyper/swiftyper-php": "^v1.0.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "Swiftyper\\fbt\\": "src"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Swiftyper\\fbt\\IntlServiceProvider"
+      ]
+    }
+  },
+  "scripts": {
+    "post-merge": "composer install"
+  }
+}
