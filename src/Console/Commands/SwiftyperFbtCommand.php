@@ -56,7 +56,7 @@ LOGO
             } elseif ($this->hasOption('upload')) {
                 $this->upload((string) $this->option('upload'));
             }
-        } catch (ApiErrorException $e) {
+        } catch (\Exception $e) {
             $this->error($e->getMessage());
 
             return 1;
@@ -98,7 +98,7 @@ LOGO
         $phrases = $path ?: $this->fbtDir . '/.source_strings.json';
 
         if (! file_exists($phrases)) {
-            $this->error('Native phrases file (' . $phrases . ') not found!');
+            $this->warn('Native phrases file (' . $phrases . ') not found!');
         } else {
             $swiftyper = Phrase::upload([
                 'native_strings' => file_get_contents($phrases),
@@ -110,7 +110,7 @@ LOGO
         $translations = $this->fbtDir . '/.translations.json';
 
         if (! file_exists($translations)) {
-            $this->error('Translations file (' . $translations . ') not found!');
+            $this->warn('Translations file (' . $translations . ') not found!');
         } else {
             $trans = file_get_contents($translations);
             if (! json_decode($trans)) {
@@ -127,6 +127,7 @@ LOGO
 
     /**
      * @throws ApiErrorException
+     * @throws \Exception
      */
     private function deploy()
     {
@@ -138,6 +139,12 @@ LOGO
         }
 
         $file = $this->fbtDir . '/translatedFbts.json';
+
+        if (!is_dir($this->fbtDir) || !is_writable($this->fbtDir)) {
+            throw new \Exception("Directory $this->fbtDir is not writable.");
+        } else if (is_file($file) && !is_writable($file)) {
+            throw new \Exception("File $file is not writable.");
+        }
 
         $translations = Translation::raw();
         file_put_contents($file, json_encode($translations, $flags));
