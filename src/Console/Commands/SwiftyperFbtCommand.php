@@ -140,9 +140,9 @@ LOGO
 
         $file = $this->fbtDir . '/translatedFbts.json';
 
-        if (!is_dir($this->fbtDir) || !is_writable($this->fbtDir)) {
+        if (! is_dir($this->fbtDir) || ! is_writable($this->fbtDir)) {
             throw new \Exception("Directory $this->fbtDir is not writable.");
-        } else if (is_file($file) && !is_writable($file)) {
+        } elseif (is_file($file) && ! is_writable($file)) {
             throw new \Exception("File $file is not writable.");
         }
 
