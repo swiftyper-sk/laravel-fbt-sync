@@ -61,7 +61,7 @@ php artisan swiftyper:fbt
 | --upload        | Upload phrases/translations to swiftyper (from default storage) |
 | --upload=[path] | Upload phrases/translations to swiftyper                        |
 | --init          | Connect fbt project with swiftyper                              |
-| --pretty        | Pretty print output                                             |
+| --pretty        | Pretty print output (default: `true`)                           |
 
 ## 📜 License
 The MIT License (MIT). Please see [LICENSE](LICENSE) for more information.

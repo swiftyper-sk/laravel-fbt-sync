@@ -6,6 +6,7 @@ use Illuminate\Console\Command;
 use Swiftyper\Exception\ApiErrorException;
 use Swiftyper\Fbt;
 use Swiftyper\Phrase;
+use Swiftyper\Swiftyper;
 use Swiftyper\Translation;
 
 class SwiftyperFbtCommand extends Command
@@ -18,7 +19,7 @@ class SwiftyperFbtCommand extends Command
     protected $signature = 'swiftyper:fbt {--deploy : Deploy reviewed app translations}' . PHP_EOL .
                            '              {--upload= : Upload phrases/translations to swiftyper}' . PHP_EOL .
                            '              {--init : Connect fbt project with swiftyper}' . PHP_EOL .
-                           '              {--pretty : Pretty print output}';
+                           '              {--pretty=true : Pretty print output}';
 
     /**
      * The console command description.
@@ -26,9 +27,15 @@ class SwiftyperFbtCommand extends Command
      * @var string
      */
     protected $description = 'Sync translations/native phrases with swiftyper.';
+
+    /**
+     * Cache storage path for generated translations & source strings.
+     *
+     * @var string
+     */
     private $fbtDir;
 
-    public function handle()
+    public function handle(): int
     {
         $this->comment(
             <<<LOGO
@@ -46,7 +53,7 @@ LOGO
             mkdir($this->fbtDir, 0755, true);
         }
 
-        \Swiftyper\Swiftyper::setApiKey(\config('swiftyper.api_key'));
+        Swiftyper::setApiKey(\config('swiftyper.api_key'));
 
         try {
             if ($this->option('init')) {
@@ -59,10 +66,10 @@ LOGO
         } catch (\Exception $e) {
             $this->error($e->getMessage());
 
-            return 1;
+            return self::FAILURE;
         }
 
-        return 0;
+        return self::SUCCESS;
     }
 
     /**

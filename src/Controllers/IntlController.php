@@ -12,10 +12,10 @@ class IntlController extends Controller
     public function sync(Request $request, SwiftyperSignatureValidator $signatureValidator)
     {
         if ($signatureValidator->isValid($request)) {
-            Artisan::call('swiftyper:fbt --deploy');
             Artisan::call('swiftyper:fbt --upload');
+            Artisan::call('swiftyper:fbt --deploy');
 
-            return response()->json([]);
+            return response()->noContent();
         }
 
         abort(403);
@@ -26,7 +26,7 @@ class IntlController extends Controller
         if ($signatureValidator->isValid($request)) {
             Artisan::call('swiftyper:fbt --upload');
 
-            return response()->json([]);
+            return response()->noContent();
         }
 
         abort(403);
@@ -37,7 +37,7 @@ class IntlController extends Controller
         if ($signatureValidator->isValid($request)) {
             Artisan::call('swiftyper:fbt --deploy');
 
-            return response()->json([]);
+            return response()->noContent();
         }
 
         abort(403);
