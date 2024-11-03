@@ -153,7 +153,9 @@ LOGO
             throw new \Exception("File $file is not writable.");
         }
 
-        $translations = Translation::raw();
+        $translations = Translation::raw([
+            'fallback' => \config('fbt.fallback', []),
+        ]);
         file_put_contents($file, json_encode($translations, $flags));
 
         $this->info('Translations has been deployed.');
