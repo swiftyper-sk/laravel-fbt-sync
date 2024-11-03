@@ -17,9 +17,9 @@ class SwiftyperFbtCommand extends Command
      * @var string
      */
     protected $signature = 'swiftyper:fbt {--deploy : Deploy reviewed app translations}' . PHP_EOL .
-                           '              {--upload= : Upload phrases/translations to swiftyper}' . PHP_EOL .
-                           '              {--init : Connect fbt project with swiftyper}' . PHP_EOL .
-                           '              {--pretty=true : Pretty print output}';
+        '              {--upload= : Upload phrases/translations to swiftyper}' . PHP_EOL .
+        '              {--init : Connect fbt project with swiftyper}' . PHP_EOL .
+        '              {--pretty=true : Pretty print output}';
 
     /**
      * The console command description.
