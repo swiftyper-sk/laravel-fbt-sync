@@ -141,7 +141,7 @@ LOGO
         $this->info('👽  Translating app...');
 
         $flags = JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE;
-        if ($this->option('pretty')) {
+        if ($this->hasOption('pretty')) {
             $flags |= JSON_PRETTY_PRINT;
         }
 
